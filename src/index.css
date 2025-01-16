@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Add base styles for form elements */
+@layer base {
+  input {
+    @apply border border-gray-300 rounded-md;
+  }
+  
+  button {
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+}
