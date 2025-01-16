@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImage from '../../assets/zeropercent.jpeg';
+import logoImage from '../../assets/zeropercent.png';
 
 
 export const Logo = () => {
