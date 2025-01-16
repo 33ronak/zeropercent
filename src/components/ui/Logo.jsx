@@ -8,7 +8,7 @@ export const Logo = () => {
       <img 
         src={logoImage} 
         alt="Zero Logo"
-        className="h-12"
+        className="h-14"
       />
     </div>
   );

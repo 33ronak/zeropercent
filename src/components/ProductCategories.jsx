@@ -4,7 +4,7 @@ const categories = [
   {
     title: 'Pastes',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-    image: 'https://i0.wp.com/www.sprinklesandseasalt.com/wp-content/uploads/2020/01/Thai-Curries-19-scaled.jpg?fit=1707%2C2560&ssl=1',
+    image: 'https://www.foodandwine.com/thmb/iAPYdMD818s4OPlB5Drd7ZAZIP0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/How-to-Use-Thai-Curry-Paste-FT-BLOG0723-656eae5b87de4a9687351d5009095e13.jpg',
   },
   {
     title: 'Premix',
