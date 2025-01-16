@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, ShoppingCart, User } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Logo } from './ui/Logo';
 import { AuthModal } from './AuthModal';
 import { Cart } from './Cart';
@@ -7,17 +8,55 @@ import { cn } from '../lib/utils';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [cartCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleHomeClick = () => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      navigate('/');
+      window.scrollTo({ top: 0 });
+    }
+  };
+
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const navItems = [
-    { label: 'Home', href: '#' },
-    { label: 'About Us', href: '#about' },
-    { label: 'Contact Us', href: '#footer', onClick: () => {
-      document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
-    }},
-    { label: 'Products', href: '#products' },
+    { 
+      label: 'Home',
+      onClick: handleHomeClick
+    },
+    { 
+      label: 'About Us',
+      onClick: handleAboutClick
+    },
+    { 
+      label: 'Contact Us',
+      onClick: () => {
+        document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    },
+    { 
+      label: 'Products',
+      onClick: () => {
+        navigate('/products');
+        window.scrollTo({ top: 0 });
+      }
+    },
   ];
 
   return (
@@ -36,21 +75,23 @@ export const Navbar = () => {
             </div>
 
             {/* Logo */}
-            <div className="flex-shrink-0 ml-4 md:ml-0">
+            <div 
+              className="flex-shrink-0 ml-4 md:ml-0 cursor-pointer"
+              onClick={handleHomeClick}
+            >
               <Logo />
             </div>
 
             {/* Navigation Items */}
             <div className="hidden md:flex md:ml-8 space-x-8">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.label}
-                  href={item.href}
                   onClick={item.onClick}
-                  className="text-gray-700 hover:text-primary-green font-medium transition-colors cursor-pointer"
+                  className="text-gray-700 hover:text-primary-green font-medium transition-colors"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
             </div>
 
@@ -77,7 +118,7 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile menu - Slide from left */}
+        {/* Mobile menu */}
         <div
           className={cn(
             "fixed inset-y-0 left-0 transform md:hidden bg-white w-64 shadow-lg transition-transform duration-300 ease-in-out z-50",
@@ -86,7 +127,9 @@ export const Navbar = () => {
         >
           <div className="p-6">
             <div className="flex items-center justify-between mb-8">
-              <Logo />
+              <div onClick={handleHomeClick}>
+                <Logo />
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
                 className="rounded-full p-2 text-primary-green hover:text-primary-orange focus:outline-none bg-secondary-light-green/20"
@@ -96,20 +139,16 @@ export const Navbar = () => {
             </div>
             <div className="space-y-3">
               {navItems.map((item) => (
-                <a
+                <button
                   key={item.label}
-                  href={item.href}
-                  onClick={(e) => {
-                    if (item.onClick) {
-                      e.preventDefault();
-                      item.onClick();
-                    }
+                  onClick={() => {
+                    item.onClick();
                     setIsOpen(false);
                   }}
-                  className="block py-2 text-base font-medium text-gray-700 hover:text-primary-green hover:bg-gray-50 rounded-md transition-colors"
+                  className="block w-full text-left py-2 text-base font-medium text-gray-700 hover:text-primary-green hover:bg-gray-50 rounded-md transition-colors"
                 >
                   {item.label}
-                </a>
+                </button>
               ))}
             </div>
           </div>

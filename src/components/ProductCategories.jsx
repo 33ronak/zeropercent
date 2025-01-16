@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
   {
@@ -7,7 +8,7 @@ const categories = [
     image: 'https://www.foodandwine.com/thmb/iAPYdMD818s4OPlB5Drd7ZAZIP0=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/How-to-Use-Thai-Curry-Paste-FT-BLOG0723-656eae5b87de4a9687351d5009095e13.jpg',
   },
   {
-    title: 'Premix',
+    title: 'Premixes',
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     image: 'https://www.shutterstock.com/image-photo/assorted-famous-indian-pakistani-food-600nw-2138815627.jpg',
   },
@@ -19,6 +20,12 @@ const categories = [
 ];
 
 export const ProductCategories = () => {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (category) => {
+    navigate(`/products?category=${category}`);
+  };
+
   return (
     <section id="products" className="py-16 bg-primary-green/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,7 +36,8 @@ export const ProductCategories = () => {
           {categories.map((category) => (
             <div
               key={category.title}
-              className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105"
+              className="bg-white rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105 cursor-pointer"
+              onClick={() => handleCategoryClick(category.title)}
             >
               <img
                 src={category.image}
@@ -46,12 +54,12 @@ export const ProductCategories = () => {
           ))}
         </div>
         <div className="mt-12 text-center">
-          <a
-            href="/products"
+          <button
+            onClick={() => navigate('/products')}
             className="inline-block bg-secondary-light-green text-primary-green font-semibold px-8 py-3 rounded-md hover:bg-secondary-light-green/90 transition-colors"
           >
             Browse Products
-          </a>
+          </button>
         </div>
       </div>
     </section>
